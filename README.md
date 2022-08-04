@@ -1,2 +1,2 @@
 # BlogManagerLite
-A lightweight blog manager
+A lightweight blog manager by zty200489.

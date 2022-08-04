@@ -1,0 +1,107 @@
+﻿<Window x:Class="BlogMarnagerLite.MVVM.View.MainWindow"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:BlogMarnagerLite.MVVM.View"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:viewmodel="clr-namespace:BlogMarnagerLite.MVVM.ViewModel"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        ResizeMode="CanResize"
+        Closed="OnWindowClosed"
+        Width="800" Height="450"
+        AllowsTransparency="True"
+        Background="Transparent">
+    <Window.DataContext>
+        <viewmodel:MainWindowViewModel/>
+    </Window.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="31"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0"
+                Background="#1F1F1F">
+            <Border.InputBindings>
+                <MouseBinding MouseAction="LeftClick"
+                              Command="{Binding DragWindowCommand}"/>
+            </Border.InputBindings>
+            
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="46"/>
+                    <ColumnDefinition Width="46"/>
+                    <ColumnDefinition Width="46"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0"
+                           Text="Blog Manager Lite"
+                           Style="{StaticResource TextBlock.NavbarTitle}"/>
+
+                <Button Grid.Column="1"
+                        Command="{Binding MinimizeWindowCommand}"
+                        Style="{StaticResource Button.NavbarControl}">
+                    <Button.Content>
+                        <Grid Width="46" Height="31"
+                              VerticalAlignment="Center"
+                              HorizontalAlignment="Center">
+                            <Path Stroke="#D6D6D6"
+                                  StrokeThickness="1"
+                                  Data="M18,15.5L28,15.5"/>
+                        </Grid>
+                    </Button.Content>
+                </Button>
+
+                <Button Grid.Column="2"
+                        x:Name="MaximizeWindow"
+                        Command="{Binding MaximizeWindowComamnd}"
+                        Style="{StaticResource Button.NavbarControl}">
+                    <Button.Content>
+                        <Grid Width="46" Height="31"
+                              VerticalAlignment="Center"
+                              HorizontalAlignment="Center">
+                            <Path Stroke="#D6D6D6"
+                                  StrokeThickness="1"
+                                  Data="M18,10.5L28,10.5L28,20.5L18,20.5Z"/>
+                        </Grid>
+                    </Button.Content>
+                </Button>
+
+                <Button Grid.Column="2"
+                        x:Name="RestoreWindow"
+                        Command="{Binding MaximizeWindowComamnd}"
+                        Style="{StaticResource Button.NavbarControl}">
+                    <Button.Content>
+                        <Grid Width="46" Height="31"
+                              VerticalAlignment="Center"
+                              HorizontalAlignment="Center">
+                            <Path Stroke="#D6D6D6"
+                                  StrokeThickness="1"
+                                  Data="M17,11.5L27,11.5L27,21.5L17,21.5ZM19,11.5L19,9.5L29,9.5L29,19.5L27,19.5"/>
+                        </Grid>
+                    </Button.Content>
+                </Button>
+
+                <Button Grid.Column="3"
+                        Command="{Binding CloseWindowCommand}"
+                        Style="{StaticResource Button.NavbarControl}">
+                    <Button.Content>
+                        <Grid Width="46" Height="31"
+                              VerticalAlignment="Center"
+                              HorizontalAlignment="Center">
+                            <Path Stroke="White"
+                                  StrokeThickness="1"
+                                  Data="M18,10.5L28,20.5M18,20.5L28,10.5"/>
+                        </Grid>
+                    </Button.Content>
+                </Button>
+            </Grid>
+        </Border>
+
+        <ContentPresenter Grid.Row="1"
+                          Content="{Binding View}"/>
+    </Grid>
+</Window>

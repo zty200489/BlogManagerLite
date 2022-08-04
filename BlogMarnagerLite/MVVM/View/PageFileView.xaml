@@ -1,0 +1,103 @@
+﻿<UserControl x:Class="BlogMarnagerLite.MVVM.View.PageFileView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BlogMarnagerLite.MVVM.View"
+             xmlns:viewmodel="clr-namespace:BlogMarnagerLite.MVVM.ViewModel"
+             xmlns:converter="clr-namespace:BlogMarnagerLite.Converter"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <converter:PageFileDisplayConverterStatusText x:Key="DisplayConverterStatusText"/>
+        <converter:PageFileDisplayConverterStatusColor x:Key="DisplayConverterStatusColor"/>
+    </UserControl.Resources>
+
+    <UserControl.DataContext>
+        <viewmodel:PageFileViewModel/>
+    </UserControl.DataContext>
+    
+    <Border Background="Transparent">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="31"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0"
+                  Background="#1F1F1F">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="85"/>
+                    <ColumnDefinition Width="75"/>
+                    <ColumnDefinition Width="75"/>
+                    <ColumnDefinition Width="75"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0"
+                        Content="Refresh All"
+                        Width="75" Height="21"
+                        HorizontalAlignment="Right"
+                        Command="{Binding RefreshAllCommand}"
+                        Style="{StaticResource Button.PageFileAllControl}"/>
+
+                <Button Grid.Column="1"
+                        Content="Commit All"
+                        Width="75" Height="21"
+                        Command="{Binding CommitAllCommand}"
+                        Style="{StaticResource Button.PageFileAllControl}"/>
+
+                <Button Grid.Column="2"
+                        Content="Upload All"
+                        Width="75" Height="21"
+                        Command="{Binding UploadAllCommand}"
+                        Style="{StaticResource Button.PageFileAllControl}"/>
+
+                <Button Grid.Column="3"
+                        Content="ForcePush"
+                        Width="75" Height="21"
+                        Command="{Binding ForcePushCommand}"
+                        Style="{StaticResource Button.PageFileAllControl}"/>
+            </Grid>
+
+            <ListView Grid.Row="1"
+                      ItemsSource="{Binding FileDisplayList}"
+                      Style="{StaticResource ListView.PageFileDisplay}">
+                <ListView.View>
+                    <GridView>
+                        <GridView.Columns>
+                            <GridViewColumn Width="550"
+                                            Header="Title">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Border Background="Transparent">
+                                            <TextBlock Foreground="#D6D6D6"
+                                                   Text="{Binding Title}"/>
+                                        </Border>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                            <GridViewColumn Width="100"
+                                            Header="Status"
+                                            x:Name="ColumnStatus">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Border Background="Transparent"
+                                                MinWidth="{Binding Path=ActualWidth,ElementName=ColumnStatus}"
+                                                VerticalAlignment="Center">
+                                            <TextBlock Text="{Binding Status, Converter={StaticResource DisplayConverterStatusText}}"
+                                                       Foreground="{Binding Status, Converter={StaticResource DisplayConverterStatusColor}}"
+                                                       TextAlignment="Center"
+                                                       Margin="-12,0,0,0"/>
+                                        </Border>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView.Columns>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+    </Border>
+</UserControl>

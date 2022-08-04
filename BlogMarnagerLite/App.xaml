@@ -1,0 +1,22 @@
+﻿<Application x:Class="BlogMarnagerLite.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:BlogMarnagerLite"
+             xmlns:view="clr-namespace:BlogMarnagerLite.MVVM.View"
+             xmlns:viewmodel="clr-namespace:BlogMarnagerLite.MVVM.ViewModel"
+             StartupUri="/MVVM/View/MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Themes/Button.NavbarControl.Night.xaml"/>
+                <ResourceDictionary Source="/Themes/TextBlock.NavbarTitle.Night.xaml"/>
+                <ResourceDictionary Source="/Themes/ListView.PageFileDisplay.Night.xaml"/>
+                <ResourceDictionary Source="/Themes/Button.PageFileAllControl.Night.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="{x:Type viewmodel:PageFileViewModel}">
+                <view:PageFileView/>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
