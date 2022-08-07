@@ -7,6 +7,7 @@
              xmlns:viewmodel="clr-namespace:BlogMarnagerLite.MVVM.ViewModel"
              xmlns:converter="clr-namespace:BlogMarnagerLite.Converter"
              mc:Ignorable="d" 
+             BorderThickness="0"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <converter:PageFileDisplayConverterStatusText x:Key="DisplayConverterStatusText"/>
@@ -16,63 +17,66 @@
     <UserControl.DataContext>
         <viewmodel:PageFileViewModel/>
     </UserControl.DataContext>
-    
-    <Border Background="Transparent">
+
+    <Border Background="#1F1F1F">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="31"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0"
-                  Background="#1F1F1F">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="85"/>
-                    <ColumnDefinition Width="75"/>
-                    <ColumnDefinition Width="75"/>
-                    <ColumnDefinition Width="75"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+            <Border Grid.Row="0"
+                    BorderBrush="#707070"
+                    BorderThickness="0,0,0,1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="85"/>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="0"
-                        Content="Refresh All"
-                        Width="75" Height="21"
-                        HorizontalAlignment="Right"
-                        Command="{Binding RefreshAllCommand}"
-                        Style="{StaticResource Button.PageFileAllControl}"/>
+                    <Button Grid.Column="0"
+                            Content="Refresh All"
+                            Width="75" Height="21"
+                            HorizontalAlignment="Right"
+                            Command="{Binding RefreshAllCommand}"
+                            Style="{StaticResource Button.PageFileAllControl}"/>
 
-                <Button Grid.Column="1"
-                        Content="Commit All"
-                        Width="75" Height="21"
-                        Command="{Binding CommitAllCommand}"
-                        Style="{StaticResource Button.PageFileAllControl}"/>
+                    <Button Grid.Column="1"
+                            Content="Commit All"
+                            Width="75" Height="21"
+                            Command="{Binding CommitAllCommand}"
+                            Style="{StaticResource Button.PageFileAllControl}"/>
 
-                <Button Grid.Column="2"
-                        Content="Upload All"
-                        Width="75" Height="21"
-                        Command="{Binding UploadAllCommand}"
-                        Style="{StaticResource Button.PageFileAllControl}"/>
-
-                <Button Grid.Column="3"
-                        Content="ForcePush"
-                        Width="75" Height="21"
-                        Command="{Binding ForcePushCommand}"
-                        Style="{StaticResource Button.PageFileAllControl}"/>
-            </Grid>
+                    <Button Grid.Column="2"
+                            Content="Upload All"
+                            Width="75" Height="21"
+                            Command="{Binding UploadAllCommand}"
+                            Style="{StaticResource Button.PageFileAllControl}"/>
+                </Grid>
+            </Border>
 
             <ListView Grid.Row="1"
                       ItemsSource="{Binding FileDisplayList}"
-                      Style="{StaticResource ListView.PageFileDisplay}">
+                      Style="{StaticResource ListView.PageFileDisplay}"
+                      ItemContainerStyle="{StaticResource ListViewItem.PageFileDisplay}">
                 <ListView.View>
-                    <GridView>
+                    <GridView ColumnHeaderContainerStyle="{StaticResource GridViewColumnHeader.PageFileDisplay}">
                         <GridView.Columns>
                             <GridViewColumn Width="550"
-                                            Header="Title">
+                                            Header="Title"
+                                            x:Name="ColumnTitle">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Border Background="Transparent">
+                                        <Border Background="Transparent"
+                                                MinWidth="{Binding Path=ActualWidth,ElementName=ColumnTitle}"
+                                                Margin="-6,0,-6,0"
+                                                Padding="6,0,0,0"
+                                                BorderThickness="0,0,1,0"
+                                                BorderBrush="#707070">
                                             <TextBlock Foreground="#D6D6D6"
-                                                   Text="{Binding Title}"/>
+                                                       Text="{Binding Title}"/>
                                         </Border>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -84,8 +88,12 @@
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <Border Background="Transparent"
+                                                VerticalAlignment="Center"
                                                 MinWidth="{Binding Path=ActualWidth,ElementName=ColumnStatus}"
-                                                VerticalAlignment="Center">
+                                                Margin="-6,0,-6,0"
+                                                Padding="6,0,0,0"
+                                                BorderThickness="0,0,1,0"
+                                                BorderBrush="#707070">
                                             <TextBlock Text="{Binding Status, Converter={StaticResource DisplayConverterStatusText}}"
                                                        Foreground="{Binding Status, Converter={StaticResource DisplayConverterStatusColor}}"
                                                        TextAlignment="Center"

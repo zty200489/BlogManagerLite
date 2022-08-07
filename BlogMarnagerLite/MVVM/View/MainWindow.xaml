@@ -9,7 +9,7 @@
         WindowStyle="None"
         ResizeMode="CanResize"
         Closed="OnWindowClosed"
-        Width="800" Height="450"
+        Width="900" Height="450"
         AllowsTransparency="True"
         Background="Transparent">
     <Window.DataContext>
@@ -23,7 +23,9 @@
         </Grid.RowDefinitions>
 
         <Border Grid.Row="0"
-                Background="#1F1F1F">
+                Background="#1F1F1F"
+                BorderThickness="0,0,0,1"
+                BorderBrush="#707070">
             <Border.InputBindings>
                 <MouseBinding MouseAction="LeftClick"
                               Command="{Binding DragWindowCommand}"/>
@@ -101,7 +103,32 @@
             </Grid>
         </Border>
 
-        <ContentPresenter Grid.Row="1"
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0"
+                    BorderThickness="0,0,1,0"
+                    BorderBrush="#707070"
+                    Background="#1F1F1F">
+                <StackPanel>
+                    <RadioButton Content="Pages"
+                                 IsChecked="True"
+                                 Command="{Binding ChangeViewPages}"
+                                 Style="{StaticResource RadioButton.Selection}">
+                    </RadioButton>
+
+                    <RadioButton Content="Mottos"
+                                 Command="{Binding ChangeViewMottos}"
+                                 Style="{StaticResource RadioButton.Selection}">
+                    </RadioButton>
+                </StackPanel>
+            </Border>
+
+            <ContentPresenter Grid.Column="1"
                           Content="{Binding View}"/>
+        </Grid>
     </Grid>
 </Window>

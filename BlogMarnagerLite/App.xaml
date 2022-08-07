@@ -8,13 +8,26 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Themes/TextBox.InputText.Night.xaml"/>
+                <ResourceDictionary Source="/Themes/Button.InputControl.Night.xaml"/>
+                <ResourceDictionary Source="/Themes/TextBlock.InputLine.Night.xaml"/>
                 <ResourceDictionary Source="/Themes/Button.NavbarControl.Night.xaml"/>
                 <ResourceDictionary Source="/Themes/TextBlock.NavbarTitle.Night.xaml"/>
+                <ResourceDictionary Source="/Themes/RadioButton.Selection.Night.xaml"/>
                 <ResourceDictionary Source="/Themes/ListView.PageFileDisplay.Night.xaml"/>
                 <ResourceDictionary Source="/Themes/Button.PageFileAllControl.Night.xaml"/>
+                <ResourceDictionary Source="/Themes/Button.InputNavbarControl.Night.xaml"/>
+                <ResourceDictionary Source="/Themes/TextBlock.InputNavbarTitle.Night.xaml"/>
+                <ResourceDictionary Source="/Themes/ListViewItem.PageFileDisplay.Night.xaml"/>
+                <ResourceDictionary Source="/Themes/GridViewColumnHeader.MottoDisplay.Night.xaml"/>
+                <ResourceDictionary Source="/Themes/GridViewColumnHeader.PageFileDisplay.Night.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type viewmodel:PageFileViewModel}">
+                <view:PageFileView/>
+            </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type viewmodel:MottoViewModel}">
                 <view:PageFileView/>
             </DataTemplate>
         </ResourceDictionary>

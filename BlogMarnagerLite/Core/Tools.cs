@@ -21,7 +21,43 @@ namespace BlogMarnagerLite.Core {
             return ResultString.ToString();
         }
         public static string ConvertMarkdown(string Content) {
-            return CommonMarkConverter.Convert(Content);
+            //preprocess
+            int flag = 0;
+            Content += '\n';
+            Content += '\n';
+            StringBuilder C = new StringBuilder();
+            for(int i = 0; i < Content.Length; i++) {
+                if(flag == 0) {
+                    if(Content[i] == '$' && Content[i + 1] == '$') {
+                        C.Append('$', 2);
+                        i++;
+                        flag = 2;
+                    } else if(Content[i] == '$') {
+                        C.Append('$');
+                        flag = 1;
+                    } else {
+                        C.Append(Content[i]);
+                    }
+                } else if(flag == 1) {
+                    if(Content[i] == '$') {
+                        C.Append('$');
+                        flag = 0;
+                    } else {
+                        C.Append(Content[i]);
+                    }
+                } else {
+                    if(Content[i] == '$' && Content[i + 1] == '$') {
+                        C.Append('$', 2);
+                        i++;
+                        flag = 0;
+                    } else if(Content[i] == '\\') {
+                        C.Append('\\', 2);
+                    } else {
+                        C.Append(Content[i]);
+                    }
+                }
+            }
+            return CommonMarkConverter.Convert(C.ToString());
         }
         public static string GetAbstract(string Content, int Length) {
             string Result = "";

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,11 +15,14 @@ using System.Windows.Shapes;
 
 namespace BlogMarnagerLite.MVVM.View {
     /// <summary>
-    /// PageFileView.xaml 的交互逻辑
+    /// MottoView.xaml 的交互逻辑
     /// </summary>
-    public partial class PageFileView : UserControl {
-        public PageFileView() {
+    public partial class MottoView : UserControl {
+        public MottoView() {
             InitializeComponent();
+        }
+        private void OnWidthChanged(object sender, SizeChangedEventArgs e) {
+            this.ContentColumn.Width = this.DisplayContainer.ActualWidth - 123;
         }
     }
 }
