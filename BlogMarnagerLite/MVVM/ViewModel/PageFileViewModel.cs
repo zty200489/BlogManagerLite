@@ -53,9 +53,11 @@ namespace BlogMarnagerLite.MVVM.ViewModel {
             UploadAllCommand = new RelayCommand(o => {
                 DirectoryInfo Folder = new DirectoryInfo(Tools.GetDirectory() + "\\Posts\\pages");
                 Folder.Delete(true);
+                List<PageFile> FileList = new List<PageFile>();
 
                 for(int i = 0; i < FileDisplayList.Count; i++) {
                     var File = FileDisplayList[i];
+                    FileList.Add(File);
                     //if(BlogContent.Pages[File.Name].Status == FileStatus.Edited) {
                         BlogContent.Pages[File.Name].Content = Tools.ConvertMarkdown(BlogContent.Pages[File.Name].FileContent);
                         BlogContent.Pages[File.Name].Abstract = Tools.GetAbstract(BlogContent.Pages[File.Name].Content, 150);
@@ -77,9 +79,15 @@ namespace BlogMarnagerLite.MVVM.ViewModel {
                         FileDisplayList.Insert(i, File);
                     //}
                 }
-
+                FileList.Sort(delegate (PageFile x, PageFile y) {
+                    if(x.DateYear == y.DateYear) {
+                        if(x.DateMonth == y.DateMonth) {
+                            return Comparer<int>.Default.Compare(y.DateDay, x.DateDay);
+                        } else return Comparer<int>.Default.Compare(y.DateMonth, x.DateMonth);
+                    } else return Comparer<int>.Default.Compare(y.DateYear, x.DateYear);
+                });
                 TemplateDocument IndexTemplate = new TemplateDocument(Tools.GetDirectory() + "\\Templates\\index.cshtml", Encoding.UTF8);
-                IndexTemplate.SetValue("Model", BlogContent.Pages);
+                IndexTemplate.SetValue("Model", FileList);
                 IndexTemplate.RenderTo(Tools.GetDirectory() + "\\Posts\\index.html", Encoding.UTF8);
                 BlogContent.OutputMottoJson(Tools.GetDirectory() + "\\Posts\\assets\\json");
 

@@ -42,6 +42,8 @@ namespace BlogMarnagerLite.Core {
                     if(Content[i] == '$') {
                         C.Append('$');
                         flag = 0;
+                    } else if(Content[i] == '\\') {
+                        C.Append('\\', 2);
                     } else {
                         C.Append(Content[i]);
                     }
