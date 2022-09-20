@@ -44,6 +44,9 @@ namespace BlogMarnagerLite.Core {
                         flag = 0;
                     } else if(Content[i] == '\\') {
                         C.Append('\\', 2);
+                    } else if(Content[i] == '_') {
+                        C.Append('\\');
+                        C.Append(Content[i]);
                     } else {
                         C.Append(Content[i]);
                     }
@@ -54,6 +57,9 @@ namespace BlogMarnagerLite.Core {
                         flag = 0;
                     } else if(Content[i] == '\\') {
                         C.Append('\\', 2);
+                    } else if(Content[i] == '_') {
+                        C.Append('\\');
+                        C.Append(Content[i]);
                     } else {
                         C.Append(Content[i]);
                     }
